@@ -3,6 +3,10 @@
 //
 
 #pragma once
+#ifndef UNICODE
+#define UNICODE
+#endif 
+
 
 #include "targetver.h"
 #define WIN32_LEAN_AND_MEAN             // Исключите редко используемые компоненты из заголовков Windows
@@ -13,3 +17,7 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
+
+
+
+

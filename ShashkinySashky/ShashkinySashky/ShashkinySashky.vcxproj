@@ -140,17 +140,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GameWindow.h" />
+    <ClInclude Include="HelloWindow.h" />
+    <ClInclude Include="Initializer.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ShashkinySashky.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="WindowElementIds.h" />
+    <ClInclude Include="WindowsHeader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameWindow.cpp" />
+    <ClCompile Include="HelloWindow.cpp" />
     <ClCompile Include="ShashkinySashky.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ShashkinySashky.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resrources\BlackQueen.png" />
+    <Image Include="Resrources\BlackShash.png" />
+    <Image Include="Resrources\WhiteQueen.png" />
+    <Image Include="Resrources\WhiteShahs.png" />
     <Image Include="ShashkinySashky.ico" />
     <Image Include="small.ico" />
   </ItemGroup>
