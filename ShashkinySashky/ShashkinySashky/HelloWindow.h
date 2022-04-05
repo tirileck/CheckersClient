@@ -1,7 +1,7 @@
 #pragma once
 #include "framework.h"
 
-static const wchar_t HELLO_WINDOW_CLASS_NAME[] = L"Sample Window Class";
+static const wchar_t HELLO_WINDOW_CLASS_NAME[] = L"HelloWindowClass";
 static const wchar_t HELLO_WINDOW_NAME[] = L"Добро пожаловать!";
 
 class HelloWindow

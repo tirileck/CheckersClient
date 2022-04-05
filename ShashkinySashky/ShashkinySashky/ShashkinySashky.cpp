@@ -13,8 +13,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
     Init(hInstance);
 
     HelloWindow *helloWindow = HelloWindow::CreateWND(hInstance);
+    GameWindow* gameWindow = GameWindow::CreateWND(hInstance);
 
-    ShowWindow(helloWindow->WindowHwnd, SW_SHOW);
+    ShowWindow(gameWindow->WindowHwnd, SW_SHOW);
 
     // Run the message loop.
     MSG msg = { };

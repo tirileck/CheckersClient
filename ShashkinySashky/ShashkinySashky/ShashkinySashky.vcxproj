@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Figure.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="HelloWindow.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="WindowsHeader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Figure.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="HelloWindow.cpp" />
     <ClCompile Include="ShashkinySashky.cpp" />

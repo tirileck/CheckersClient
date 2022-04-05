@@ -4,5 +4,6 @@
 // Инклюдим в этот хедер новосозданные окна
 
 #include "HelloWindow.h"
+#include "GameWindow.h"
 
 

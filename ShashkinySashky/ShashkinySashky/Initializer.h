@@ -14,4 +14,5 @@ void Init(HINSTANCE hInstanse) {
 
 void RegisterWNDClasses(HINSTANCE hInstanse) {
 	HelloWindow::RegisterHelloWndClass(hInstanse);
+	GameWindow::RegisterGameWndClass(hInstanse);
 }
