@@ -6,7 +6,9 @@
 #ifndef UNICODE
 #define UNICODE
 #endif 
-
+#define _CRT_SECURE_NO_WARNINGS
+#define FIGURE_WIDTH 100
+#define FIGURE_HEIGHT 100
 
 #include "targetver.h"
 #define WIN32_LEAN_AND_MEAN             // Исключите редко используемые компоненты из заголовков Windows
@@ -19,5 +21,12 @@
 #include <tchar.h>
 
 
+#pragma region Events
+#define REDRAW_BUTTON 200000
+#pragma endregion
+
+#pragma region CurrentPositions
 
 
+
+#pragma endregion

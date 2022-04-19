@@ -1,5 +1,7 @@
 #include "GameWindow.h"
 #include "WindowElementIds.h"
+#include "framework.h"
+#include "CanStep.h"
 
 
 LRESULT CALLBACK GameWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -14,28 +16,18 @@ LRESULT CALLBACK GameWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPar
         int wmId = LOWORD(wParam);      //Id окна, вызвавшее событие
         int wmEvent = HIWORD(wParam);       //Id события
 
-        switch (wmId) {
-       
-
+        if (wmId >= 15000 && wmId <= 15023) {
+            //CanStep::CreateStepLights(wmId);
         }
+        
     }
     case WM_PAINT:
     {
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hwnd, &ps);
-        //FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
-
-        //RECT rect;
-        //rect.left = 5;
-        //rect.top = 5;
-        //rect.bottom = 100;
-        //rect.right = 100;
-        //FillRect(hdc, &rect, CreateSolidBrush(LightColor));
-        //FillRect(hdc, &ps.rcPaint, (HBRUSH)RGB(139, 69, 19));
-        //FillRect(hdc, &rect, CreateSolidBrush(RGB(139, 69, 19)));
-       
-        int widthRect = 100;
-        int heightRect = 100;
+        
+        int widthRect = FIGURE_WIDTH;
+        int heightRect = FIGURE_HEIGHT;
         int cols = 8;
 
         int currentWidth = 0;
@@ -72,7 +64,6 @@ LRESULT CALLBACK GameWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 
         EndPaint(hwnd, &ps);
     }
-    return 0;
     }
 
     return DefWindowProc(hwnd, uMsg, wParam, lParam);
