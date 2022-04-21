@@ -26,12 +26,14 @@ LRESULT CALLBACK WhiteFigureWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPAR
 }
 
 
-WhiteFigure* WhiteFigure::CreateWND(HINSTANCE hInstance, HWND parentWindow, int posX, int posY, int hMenu) {
+WhiteFigure* WhiteFigure::CreateWND(HINSTANCE hInstance, HWND parentWindow, int posX, int posY, int hMenu, int indexX, int indexY) {
     WhiteFigure* whiteFigure = new WhiteFigure();
     whiteFigure->type = WHITE_FIGURE;
     whiteFigure->posX = posX;
     whiteFigure->posY = posY;
     whiteFigure->wmId = hMenu;
+    whiteFigure->IndexX = indexX;
+    whiteFigure->IndexY = indexY;
 
     HBITMAP hbit;
     hbit = (HBITMAP)LoadImage(hInstance, MAKEINTRESOURCE(IDB_BITMAP4), IMAGE_BITMAP, 0, 0, 0);

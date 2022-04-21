@@ -5,22 +5,35 @@ void Figure::Draw() {
 }
 
 void Figure::MoveBottomRight() {
-	posX += 100;
-	posY += 100;
+	posX += FIGURE_HEIGHT;
+	posY += FIGURE_WIDTH;
+	IndexX++;
+	IndexY++;
 	MovePosition(posX, posY);
 }
 void Figure::MoveBottomLeft() {
-	posX -= 100;
-	posY += 100;
+	posX -= FIGURE_HEIGHT;
+	posY += FIGURE_WIDTH;
+	IndexX++;
+	IndexY--;
 	MovePosition(posX, posY);
 }
 void Figure::MoveTopRight() {
-	posX += 100;
-	posY -= 100;
+	posX += FIGURE_HEIGHT;
+	posY -= FIGURE_WIDTH;
+	IndexX--;
+	IndexY++;
 	MovePosition(posX, posY);
 }
 void Figure::MoveTopLeft() {
-	posX -= 100;
-	posY -= 100;
+	posX -= FIGURE_HEIGHT;
+	posY -= FIGURE_WIDTH;
+	IndexX--;
+	IndexY--;
 	MovePosition(posX, posY);
+}
+
+
+void Figure::HideFigure() {
+	ShowWindow(this->WindowHwnd, SW_HIDE);
 }

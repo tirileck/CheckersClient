@@ -13,3 +13,8 @@ const int HelloWindow_Button = 10003;
 #pragma region CanSteps
 	//11000 - 11100 
 #pragma endregion
+
+#pragma region Figures
+	// White - 15000 - 15011
+	// Black - 15012 - 15023
+#pragma endregion

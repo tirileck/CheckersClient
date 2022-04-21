@@ -8,7 +8,7 @@ class BlackFigure : public Figure
 {
 public:
 
-	static BlackFigure* CreateWND(HINSTANCE hInstanse, HWND parentHwnd, int posX, int posY, int hMenu);
+	static BlackFigure* CreateWND(HINSTANCE hInstanse, HWND parentHwnd, int posX, int posY, int hMenu, int indexX, int indexY);
 
 	static void RegisterBlackFigureClass(HINSTANCE hInstanse);		//Регистрирует класс окна
 };

@@ -9,6 +9,8 @@ public:
 	TypeOfClass type;
 	int posX;
 	int posY;
+	int IndexX;
+	int IndexY;
 	int wmId;
 	bool isShash = true;
 
@@ -17,12 +19,15 @@ public:
 	void Draw();
 
 	void MovePosition(int x, int y) {
-		SetWindowPos(WindowHwnd, HWND_TOP, x, y, 0, 0, SWP_NOSIZE);
+		SetWindowPos(WindowHwnd, HWND_TOP, y, x, 0, 0, SWP_NOSIZE);
 	}
 
 	void MoveBottomRight();
 	void MoveBottomLeft();
 	void MoveTopRight();
 	void MoveTopLeft();
+
+
+	void HideFigure();
 };
 

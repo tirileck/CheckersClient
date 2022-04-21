@@ -1,11 +1,16 @@
 #include "GameWindow.h"
 #include "WindowElementIds.h"
 #include "framework.h"
-#include "CanStep.h"
 
 
 LRESULT CALLBACK GameWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+    static Figure* figure = nullptr;
+
+    static StepRect* stepRect = nullptr;
+
+    Figure* eatenFigure = nullptr;
+
     switch (uMsg)
     {
     case WM_DESTROY:
@@ -16,8 +21,36 @@ LRESULT CALLBACK GameWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPar
         int wmId = LOWORD(wParam);      //Id окна, вызвавшее событие
         int wmEvent = HIWORD(wParam);       //Id события
 
-        if (wmId >= 15000 && wmId <= 15023) {
-            //CanStep::CreateStepLights(wmId);
+        if (wmId >= 15000 && wmId < 15012) {
+            canSteps->HideRects();
+            // Клик по белой фишке
+            figure = figures->GetFigure(wmId);
+            if(figure->isShash)
+                canSteps->CreateStepLogic(figures, figure, WHITESHASH, ME);
+            else
+                canSteps->CreateStepLogic(figures, figure, WHITEQUEEN, ME);
+        }
+        else if (wmId >= 15012 && wmId <= 15023) {
+            canSteps->HideRects();
+            // Клик по черной фишке
+            figure = figures->GetFigure(wmId);
+            if (figure->isShash)
+                canSteps->CreateStepLogic(figures, figure, BLACKSHASH, ENEMY);
+            else
+                canSteps->CreateStepLogic(figures, figure, BLACKQUEEN, ENEMY);
+        }
+        else if (wmId >= 11000 && wmId < 11064) {
+            // Сообщение от клика на квадрат возможности хода
+
+            stepRect = canSteps->GetStepRect(wmId);
+
+            // Хавальная фигура
+            eatenFigure = figures->GetEatenFigure(figure->IndexX, figure->IndexY, stepRect->IndexX, stepRect->IndexY);
+            if(eatenFigure != nullptr)
+                figures->EatShah(eatenFigure);
+
+            figures->MoveShash(figure->IndexX, figure->IndexY, stepRect->IndexX, stepRect->IndexY);
+            canSteps->HideRects();
         }
         
     }
@@ -87,6 +120,10 @@ GameWindow* GameWindow::CreateWND(HINSTANCE hInstance) {
         hInstance,  // Instance handle
         NULL        // Additional application data
     );
+
+    canSteps = CanStep::InitRects(hInstance, game->WindowHwnd);
+
+    figures = GameFigures::InitFigure(hInstance, game->WindowHwnd);
 
 
     return game;

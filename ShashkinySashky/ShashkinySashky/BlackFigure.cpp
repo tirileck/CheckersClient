@@ -24,12 +24,14 @@ LRESULT CALLBACK BlackFigureWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPAR
 }
 
 
-BlackFigure* BlackFigure::CreateWND(HINSTANCE hInstance, HWND parentWindow, int posX, int posY, int hMenu) {
+BlackFigure* BlackFigure::CreateWND(HINSTANCE hInstance, HWND parentWindow, int posX, int posY, int hMenu, int indexX, int indexY) {
     BlackFigure* blackFigure = new BlackFigure();
     blackFigure->type = BLACK_FIGURE;
     blackFigure->posX = posX;
     blackFigure->posY = posY;
     blackFigure->wmId = hMenu;
+    blackFigure->IndexX = indexX;
+    blackFigure->IndexY = indexY;
     
     HBITMAP hbit;
     hbit = (HBITMAP)LoadImage(hInstance, MAKEINTRESOURCE(IDB_BITMAP2), IMAGE_BITMAP, 0, 0, 0);
