@@ -23,5 +23,7 @@ public:
 	void EatShah(Figure* eaten);
 
 	Figure* GetEatenFigure(int oldX, int oldY, int newX, int newY);
+
+	void EnableFigures(TypeOfClass typeOfFigure, bool enable);
 };
 

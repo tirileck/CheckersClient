@@ -21,7 +21,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
 
 
     ShowWindow(gameWindow->WindowHwnd, SW_SHOW);
-    
+    gameWindow->StartGame(ME);
+
     MSG msg = { };
     while (GetMessage(&msg, NULL, 0, 0))
     {

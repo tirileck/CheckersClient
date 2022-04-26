@@ -18,6 +18,9 @@ class GameWindow
 public:
 	HWND WindowHwnd;					// Дескриптор созданного окна
 
+	WHO currentPlayer;
+
+	void StartGame(WHO firstPlayer);
 
 	static GameWindow* CreateWND(HINSTANCE hInstanse);
 

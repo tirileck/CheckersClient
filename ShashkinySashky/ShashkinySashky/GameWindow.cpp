@@ -129,6 +129,20 @@ GameWindow* GameWindow::CreateWND(HINSTANCE hInstance) {
     return game;
 }
 
+
+void GameWindow::StartGame(WHO firstPlayer) {
+    if (firstPlayer == ME) {
+        figures->EnableFigures(BLACK_FIGURE, false);
+        figures->EnableFigures(WHITE_FIGURE, true);
+    }
+    else {
+        figures->EnableFigures(BLACK_FIGURE, true);
+        figures->EnableFigures(WHITE_FIGURE, false);
+    }
+    currentPlayer = firstPlayer;
+    
+}
+
 void GameWindow::RegisterGameWndClass(HINSTANCE hInstance) {
 
     WNDCLASS wc = { };

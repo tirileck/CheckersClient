@@ -12,10 +12,12 @@ GameFigures* GameFigures::InitFigure(HINSTANCE hInstanse, HWND parentHwnd) {
 			if (currFigure < 12 && i >= 0 && i <= 2 ) {
 				if (i % 2 == 0 && j% 2 == 1) {
 					gameFigures->figures[i][j] = WhiteFigure::CreateWND(hInstanse, parentHwnd, j * FIGURE_WIDTH, i * FIGURE_HEIGHT, gameFigures->CurrHMenu++, i, j);
+					EnableWindow(gameFigures->figures[i][j]->WindowHwnd, false);
 					currFigure++;
 				}
 				else if (i % 2 == 1 && j % 2 == 0) {
 					gameFigures->figures[i][j] = WhiteFigure::CreateWND(hInstanse, parentHwnd, j * FIGURE_WIDTH, i * FIGURE_HEIGHT, gameFigures->CurrHMenu++, i, j);
+					EnableWindow(gameFigures->figures[i][j]->WindowHwnd, false);
 					currFigure++;
 				} else{
 					gameFigures->figures[i][j] = nullptr;
@@ -24,10 +26,12 @@ GameFigures* GameFigures::InitFigure(HINSTANCE hInstanse, HWND parentHwnd) {
 			else if (currFigure >= 12 && i >= 5) {
 				if (i % 2 == 0 && j % 2 == 1) {
 					gameFigures->figures[i][j] = BlackFigure::CreateWND(hInstanse, parentHwnd, j * FIGURE_WIDTH, i * FIGURE_HEIGHT, gameFigures->CurrHMenu++, i, j);
+					EnableWindow(gameFigures->figures[i][j]->WindowHwnd, false);
 					currFigure++;
 				}
 				else if (i % 2 == 1 && j % 2 == 0) {
 					gameFigures->figures[i][j] = BlackFigure::CreateWND(hInstanse, parentHwnd, j * FIGURE_WIDTH, i * FIGURE_HEIGHT, gameFigures->CurrHMenu++, i, j);
+					EnableWindow(gameFigures->figures[i][j]->WindowHwnd, false);
 					currFigure++;
 				}
 				else {
@@ -91,4 +95,11 @@ Figure* GameFigures::GetEatenFigure(int oldX, int oldY, int newX, int newY) {
 		return figures[oldX + 1][oldY + 1];
 	}
 	return nullptr;
+}
+
+void GameFigures::EnableFigures(TypeOfClass typeOfFigure, bool enable) {
+	for (int i = 0; i < 8; i++)
+		for (int j = 0; j < 8; j++)
+			if (figures[i][j] != nullptr && figures[i][j]->type == typeOfFigure)
+				EnableWindow(figures[i][j]->WindowHwnd, enable);
 }
