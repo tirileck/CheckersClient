@@ -34,6 +34,7 @@ WhiteFigure* WhiteFigure::CreateWND(HINSTANCE hInstance, HWND parentWindow, int 
     whiteFigure->wmId = hMenu;
     whiteFigure->IndexX = indexX;
     whiteFigure->IndexY = indexY;
+    whiteFigure->hInstance = hInstance;
 
     HBITMAP hbit;
     hbit = (HBITMAP)LoadImage(hInstance, MAKEINTRESOURCE(IDB_BITMAP4), IMAGE_BITMAP, 0, 0, 0);

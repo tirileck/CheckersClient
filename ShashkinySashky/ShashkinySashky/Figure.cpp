@@ -37,3 +37,16 @@ void Figure::MoveTopLeft() {
 void Figure::HideFigure() {
 	ShowWindow(this->WindowHwnd, SW_HIDE);
 }
+
+void Figure::MakeQueen() {
+	isShash = false;
+	HBITMAP hbit;
+	if (type == WHITE_FIGURE) {
+		hbit = (HBITMAP)LoadImage(hInstance, MAKEINTRESOURCE(IDB_BITMAP3), IMAGE_BITMAP, 0, 0, 0);
+		SendMessage(this->WindowHwnd, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)hbit);
+	} else {
+
+		hbit = (HBITMAP)LoadImage(hInstance, MAKEINTRESOURCE(IDB_BITMAP1), IMAGE_BITMAP, 0, 0, 0);
+		SendMessage(this->WindowHwnd, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)hbit);
+	}
+}

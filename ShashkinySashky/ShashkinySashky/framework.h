@@ -22,7 +22,8 @@
 
 
 #pragma region Events
-#define REDRAW_BUTTON 200000
+#define SETGAME 200000			
+
 #pragma endregion
 
 #pragma region CurrentPositions

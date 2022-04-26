@@ -1,5 +1,7 @@
 #pragma once
 #include "framework.h"
+#include <vector>
+#include "Figure.h"
 
 static const COLORREF RedColor = RGB(255, 0, 0);
 static const COLORREF GreenColor = RGB(0, 255, 0);
@@ -13,6 +15,8 @@ public:
 	HINSTANCE hInstance;
 	HWND WindowHwnd;					// Дескриптор созданного окна
 
+	std::vector<Figure*> eatenFigures;
+
 	int HMenu;
 	int IndexX, IndexY;
 
@@ -23,5 +27,7 @@ public:
 	void DrawRect(DRAWSTEPRECTCOLOW color);
 
 	void HideRect();
+
+	void EnableRect(bool enable);
 };
 

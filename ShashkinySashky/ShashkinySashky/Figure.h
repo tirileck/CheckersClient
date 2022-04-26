@@ -1,5 +1,6 @@
 #pragma once
 #include "framework.h"
+#include "resource.h"
 
 enum TypeOfClass{WHITE_FIGURE = 1, BLACK_FIGURE = 2};
 
@@ -14,6 +15,7 @@ public:
 	int wmId;
 	bool isShash = true;
 
+	HINSTANCE hInstance;
 	HWND WindowHwnd;					// Дескриптор созданного окна
 
 	void Draw();
@@ -29,5 +31,7 @@ public:
 
 
 	void HideFigure();
+
+	void MakeQueen();
 };
 

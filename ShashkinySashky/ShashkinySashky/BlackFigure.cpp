@@ -32,6 +32,7 @@ BlackFigure* BlackFigure::CreateWND(HINSTANCE hInstance, HWND parentWindow, int 
     blackFigure->wmId = hMenu;
     blackFigure->IndexX = indexX;
     blackFigure->IndexY = indexY;
+    blackFigure->hInstance = hInstance;
     
     HBITMAP hbit;
     hbit = (HBITMAP)LoadImage(hInstance, MAKEINTRESOURCE(IDB_BITMAP2), IMAGE_BITMAP, 0, 0, 0);

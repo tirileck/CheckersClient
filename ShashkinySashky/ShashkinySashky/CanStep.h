@@ -6,6 +6,7 @@
 
 enum TYPEFIGURE{WHITESHASH, BLACKSHASH, WHITEQUEEN, BLACKQUEEN};
 enum WHO { ME, ENEMY };
+enum DIRECTION{ NOTHING, LEFTUP, LEFTDOWN, RIGHTUP, RIGHTDOWN};
 
 class CanStep
 {
@@ -32,6 +33,11 @@ public:
 	// Получает указатель на квадрат по hMenu
 	StepRect* GetStepRect(int hMenu);
 
-	void CreateStepLogic(GameFigures* figures, Figure* figure, TYPEFIGURE type, WHO who);
+	void CreateStepLogic(GameFigures* gameFigures, int figureX, int figureY, TYPEFIGURE type, WHO who, bool eaten = false, int fromX = -1, int fromY = -1, DIRECTION direction = NOTHING);
+
+	void ClearEatenFiguresFromRects();
+
+	void EnableRects(bool enable);
+
 };
 

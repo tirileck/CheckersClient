@@ -5,6 +5,8 @@
 
 LRESULT CALLBACK GameWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+    static GameWindow* currGame = nullptr;
+
     static Figure* figure = nullptr;
 
     static StepRect* stepRect = nullptr;
@@ -13,6 +15,11 @@ LRESULT CALLBACK GameWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 
     switch (uMsg)
     {
+        // Кастомное событие, вызываем в начале игры для привязки процедуры к классу окна
+    case WM_CREATE:
+        currGame = (GameWindow*)((LPCREATESTRUCT)lParam)->lpCreateParams;
+        return 0;
+
     case WM_DESTROY:
         PostQuitMessage(0);
         return 0;
@@ -22,35 +29,42 @@ LRESULT CALLBACK GameWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPar
         int wmEvent = HIWORD(wParam);       //Id события
 
         if (wmId >= 15000 && wmId < 15012) {
-            canSteps->HideRects();
+            currGame->canSteps->HideRects();
             // Клик по белой фишке
-            figure = figures->GetFigure(wmId);
+            figure = currGame->figures->GetFigure(wmId);
             if(figure->isShash)
-                canSteps->CreateStepLogic(figures, figure, WHITESHASH, ME);
+                currGame->canSteps->CreateStepLogic(currGame->figures, figure->IndexX, figure->IndexY, WHITESHASH, ME);
             else
-                canSteps->CreateStepLogic(figures, figure, WHITEQUEEN, ME);
+                currGame->canSteps->CreateStepLogic(currGame->figures, figure->IndexX, figure->IndexY, WHITEQUEEN, ME);
         }
         else if (wmId >= 15012 && wmId <= 15023) {
-            canSteps->HideRects();
+            currGame->canSteps->HideRects();
             // Клик по черной фишке
-            figure = figures->GetFigure(wmId);
+            figure = currGame->figures->GetFigure(wmId);
             if (figure->isShash)
-                canSteps->CreateStepLogic(figures, figure, BLACKSHASH, ENEMY);
+                currGame->canSteps->CreateStepLogic(currGame->figures, figure->IndexX, figure->IndexY, BLACKSHASH, ENEMY);
             else
-                canSteps->CreateStepLogic(figures, figure, BLACKQUEEN, ENEMY);
+                currGame->canSteps->CreateStepLogic(currGame->figures, figure->IndexX, figure->IndexY, BLACKQUEEN, ENEMY);
         }
         else if (wmId >= 11000 && wmId < 11064) {
             // Сообщение от клика на квадрат возможности хода
 
-            stepRect = canSteps->GetStepRect(wmId);
+            stepRect = currGame->canSteps->GetStepRect(wmId);
 
-            // Хавальная фигура
-            eatenFigure = figures->GetEatenFigure(figure->IndexX, figure->IndexY, stepRect->IndexX, stepRect->IndexY);
-            if(eatenFigure != nullptr)
-                figures->EatShah(eatenFigure);
+            // Хавальные фигуры
+            for (int i = 0; i < stepRect->eatenFigures.size(); i++)
+                currGame->figures->EatShah(stepRect->eatenFigures[i]);
 
-            figures->MoveShash(figure->IndexX, figure->IndexY, stepRect->IndexX, stepRect->IndexY);
-            canSteps->HideRects();
+            currGame->figures->MoveShash(figure->IndexX, figure->IndexY, stepRect->IndexX, stepRect->IndexY);
+            currGame->canSteps->ClearEatenFiguresFromRects();
+            currGame->canSteps->EnableRects(true);
+            currGame->canSteps->HideRects();
+            if (figure->type == WHITE_FIGURE && figure->isShash && figure->IndexX == 7)
+                figure->MakeQueen();
+            if(figure->type == BLACK_FIGURE && figure->isShash && figure->IndexX == 0)
+                figure->MakeQueen();
+
+            currGame->ToggleStep();
         }
         
     }
@@ -105,6 +119,8 @@ LRESULT CALLBACK GameWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 GameWindow* GameWindow::CreateWND(HINSTANCE hInstance) {
     GameWindow* game = new GameWindow();
 
+    game->hInstance = hInstance;
+
     // Создаем главное окно
     game->WindowHwnd = CreateWindowEx(
         0,                              // Optional window styles.
@@ -118,12 +134,13 @@ GameWindow* GameWindow::CreateWND(HINSTANCE hInstance) {
         NULL,       // Parent window    
         NULL,       // Menu
         hInstance,  // Instance handle
-        NULL        // Additional application data
+        static_cast<LPVOID>(game)
     );
 
-    canSteps = CanStep::InitRects(hInstance, game->WindowHwnd);
 
-    figures = GameFigures::InitFigure(hInstance, game->WindowHwnd);
+    game->canSteps = CanStep::InitRects(hInstance, game->WindowHwnd);
+
+    game->figures = GameFigures::InitFigure(hInstance, game->WindowHwnd);
 
 
     return game;
@@ -139,8 +156,22 @@ void GameWindow::StartGame(WHO firstPlayer) {
         figures->EnableFigures(BLACK_FIGURE, true);
         figures->EnableFigures(WHITE_FIGURE, false);
     }
+
     currentPlayer = firstPlayer;
     
+}
+
+void GameWindow::ToggleStep() {
+    if (currentPlayer == ME) {
+        figures->EnableFigures(WHITE_FIGURE, false);
+        figures->EnableFigures(BLACK_FIGURE, true);
+        currentPlayer = ENEMY;
+    }
+    else {
+        figures->EnableFigures(WHITE_FIGURE, true);
+        figures->EnableFigures(BLACK_FIGURE, false);
+        currentPlayer = ME;
+    }
 }
 
 void GameWindow::RegisterGameWndClass(HINSTANCE hInstance) {

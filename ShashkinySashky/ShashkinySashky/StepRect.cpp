@@ -63,6 +63,11 @@ void StepRect::HideRect() {
     ShowWindow(this->WindowHwnd, SW_HIDE);
 }
 
+void StepRect::EnableRect(bool enable) {
+    EnableWindow(this->WindowHwnd, enable);
+}
+
+
 void StepRect::RegisterStepRectClass(HINSTANCE hInstance) {
 
     WNDCLASS wc = { };
